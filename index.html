@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DentalCallFlow™ | Patient Acquisition Systems for Dental Practices</title>
+<meta name="description" content="Automated patient acquisition pipelines for Dental Practices in Canada, USA & UK. Built by Alauddin — CSE graduate with 15 years of technical expertise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy:       #07111F;
+    --navy-mid:   #0E1E35;
+    --navy-light: #152844;
+    --orange:     #F4511E;
+    --orange-glow:#FF6B3D;
+    --orange-dim: rgba(244,81,30,0.12);
+    --white:      #FFFFFF;
+    --ice:        #F2F6FF;
+    --gray-100:   #EEF1F8;
+    --gray-300:   #C8D0E0;
+    --text:       #0B1628;
+    --text-light: #5A6882;
+    --green:      #19D68A;
+    --radius-xl:  28px;
+    --radius-lg:  18px;
+    --radius-md:  12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+  .section-gap { padding: 110px 0; }
+
+  /* ── LABEL ── */
+  .label {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--orange);
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .label::before {
+    content: '';
+    display: inline-block; width: 22px; height: 2px;
+    background: var(--orange); border-radius: 2px;
+  }
+
+  /* ══════════════ NAV ══════════════ */
+  nav {
+    background: rgba(7,17,31,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding: 16px 0;
+    position: sticky; top: 0; z-index: 200;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  nav .row {
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 20px;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 21px; font-weight: 800;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .logo em { color: var(--orange); font-style: normal; }
+
+  .nav-badge {
+    font-size: 11px; font-weight: 600;
+    color: var(--green);
+    background: rgba(25,214,138,0.1);
+    border: 1px solid rgba(25,214,138,0.25);
+    padding: 3px 10px; border-radius: 50px;
+    margin-left: 10px; vertical-align: middle;
+  }
+
+  /* ══════════════ BUTTONS ══════════════ */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.25s ease;
+    cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: var(--orange);
+    color: #fff;
+    padding: 14px 28px;
+    box-shadow: 0 4px 20px rgba(244,81,30,0.3);
+  }
+  .btn-primary:hover {
+    background: var(--orange-glow);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(244,81,30,0.4);
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    padding: 14px 28px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .btn-ghost:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+  }
+  .btn-sm { padding: 10px 22px; font-size: 13px; }
+
+  /* ══════════════ HERO ══════════════ */
+  .hero {
+    background: var(--navy);
+    color: var(--white);
+    padding: 90px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative grid background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* Radial glow */
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(244,81,30,0.15) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    display: flex; align-items: center;
+    gap: 70px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+
+  .hero-content { flex: 1.3; min-width: 300px; }
+
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(244,81,30,0.12);
+    border: 1px solid rgba(244,81,30,0.3);
+    color: #FF9070;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 16px; border-radius: 50px;
+    margin-bottom: 28px;
+  }
+  .hero-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 4.5vw, 58px);
+    font-weight: 800; margin-bottom: 22px;
+  }
+  .hero h1 em { color: var(--orange); font-style: normal; }
+
+  .hero-sub {
+    font-size: 18px; font-weight: 300;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 38px; max-width: 520px;
+    line-height: 1.75;
+  }
+
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .hero-trust {
+    margin-top: 48px; padding-top: 36px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; gap: 36px; flex-wrap: wrap;
+  }
+  .trust-item { display: flex; flex-direction: column; gap: 3px; }
+  .trust-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800; color: var(--white);
+  }
+  .trust-num em { color: var(--orange); font-style: normal; }
+  .trust-label { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 400; }
+
+  /* Profile visual */
+  .hero-visual {
+    flex: 0.7; min-width: 280px;
+    display: flex; justify-content: center;
+    position: relative;
+  }
+
+  .profile-wrap {
+    position: relative; display: inline-block;
+  }
+
+  .profile-img {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--orange);
+    box-shadow:
+      0 0 0 1px rgba(244,81,30,0.3),
+      0 30px 60px rgba(0,0,0,0.4),
+      0 0 80px rgba(244,81,30,0.15);
+    display: block;
+    background: var(--navy-light);
+    transition: transform 0.4s ease;
+  }
+  .profile-img:hover { transform: scale(1.025); }
+
+  /* Floating credential card */
+  .cred-card {
+    position: absolute; bottom: 20px; left: -30px;
+    background: rgba(14,30,53,0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 14px 20px;
+    white-space: nowrap;
+  }
+  .cred-card .cred-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--white);
+  }
+  .cred-card .cred-sub {
+    font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px;
+  }
+
+  /* ══════════════ SOCIAL PROOF TICKER ══════════════ */
+  .ticker-bar {
+    background: var(--orange);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-track {
+    display: inline-flex; gap: 0;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: #fff; padding: 0 36px;
+    letter-spacing: 0.5px;
+  }
+  .ticker-item::after {
+    content: '✦'; margin-left: 36px;
+    opacity: 0.6;
+  }
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ══════════════ PROBLEM / PAIN ══════════════ */
+  .problem { background: var(--ice); }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; margin-top: 44px;
+  }
+
+  .pain-card {
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-lg);
+    padding: 30px 28px;
+    transition: all 0.28s ease;
+    position: relative; overflow: hidden;
+  }
+  .pain-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gray-300);
+    transition: background 0.28s;
+  }
+  .pain-card:hover { border-color: var(--orange); transform: translateY(-5px); }
+  .pain-card:hover::before { background: var(--orange); }
+
+  .pain-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+  .pain-card h4 {
+    font-size: 17px; font-weight: 700;
+    margin-bottom: 10px; color: var(--text);
+  }
+  .pain-card p { font-size: 14px; color: var(--text-light); line-height: 1.65; }
+
+  /* ══════════════ HOW IT WORKS ══════════════ */
+  .how-section { background: var(--white); }
+
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0; margin-top: 56px;
+    position: relative;
+  }
+  .steps-row::before {
+    content: '';
+    position: absolute;
+    top: 42px; left: 10%; right: 10%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--orange) 0, var(--orange) 8px, transparent 8px, transparent 16px);
+    z-index: 0;
+  }
+
+  .step {
+    text-align: center; padding: 0 24px;
+    position: relative; z-index: 1;
+  }
+
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 6px 20px rgba(244,81,30,0.35);
+  }
+
+  .step h4 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .step p  { font-size: 14px; color: var(--text-light); line-height: 1.65; }
+
+  /* ══════════════ RESEARCH / CASE STUDY ══════════════ */
+  .research { background: var(--navy); color: var(--white); }
+  .research .label { color: var(--orange); }
+
+  .research h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--white); margin-bottom: 16px;
+  }
+
+  .research-intro {
+    font-size: 17px; color: rgba(255,255,255,0.65);
+    max-width: 680px; margin-bottom: 48px; line-height: 1.75;
+  }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .res-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 30px 28px;
+    transition: all 0.28s;
+  }
+  .res-card:hover {
+    background: rgba(255,255,255,0.09);
+    border-color: rgba(244,81,30,0.5);
+    transform: translateY(-4px);
+  }
+
+  .res-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--orange);
+    background: var(--orange-dim);
+    padding: 4px 12px; border-radius: 50px;
+    margin-bottom: 16px;
+  }
+
+  .res-card h4 {
+    font-size: 20px; font-weight: 800;
+    color: var(--white); margin-bottom: 10px;
+  }
+  .res-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  .research-highlight {
+    margin-top: 44px;
+    background: rgba(244,81,30,0.08);
+    border: 1px solid rgba(244,81,30,0.2);
+    border-radius: var(--radius-xl);
+    padding: 36px 40px;
+    display: flex; align-items: center; gap: 30px;
+    flex-wrap: wrap;
+  }
+  .research-highlight .big {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px; font-weight: 800;
+    color: var(--orange); line-height: 1;
+    flex-shrink: 0;
+  }
+  .research-highlight p {
+    font-size: 16px; color: rgba(255,255,255,0.75);
+    line-height: 1.7; max-width: 520px;
+  }
+  .research-highlight strong { color: var(--white); }
+
+  /* ══════════════ SERVICES ══════════════ */
+  .services { background: var(--ice); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-xl);
+    padding: 36px 32px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--orange), var(--orange-glow));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+  .service-card:hover::after { transform: scaleX(1); }
+
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--orange-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 22px;
+  }
+  .service-card h4 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .service-card p  { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+
+  .service-list {
+    margin-top: 18px; list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .service-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 13px; color: var(--text-light);
+  }
+  .service-list li::before {
+    content: '→';
+    color: var(--orange); font-weight: 700; flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ══════════════ WHY ME ══════════════ */
+  .whyme { background: var(--white); }
+
+  .whyme-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .whyme-content h2 {
+    font-size: clamp(28px, 3.5vw, 42px);
+    margin-bottom: 22px;
+  }
+  .whyme-content p {
+    font-size: 16px; color: var(--text-light);
+    line-height: 1.8; margin-bottom: 18px;
+  }
+
+  .credential-list {
+    list-style: none; margin-top: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .credential-list li {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 15px; font-weight: 500; color: var(--text);
+  }
+  .cred-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--orange-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+
+  .whyme-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .stat-box {
+    background: var(--ice);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .stat-box:hover { border-color: var(--orange); transform: translateY(-4px); }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px; font-weight: 800;
+    color: var(--orange); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-desc { font-size: 13px; color: var(--text-light); }
+
+  /* ══════════════ FOOTER / CTA ══════════════ */
+  footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 100px 0 60px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(244,81,30,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .footer-inner { position: relative; z-index: 1; }
+
+  .footer-inner h2 {
+    font-size: clamp(30px, 4.5vw, 52px);
+    color: var(--white); margin-bottom: 18px;
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .footer-inner h2 em { color: var(--orange); font-style: normal; }
+
+  .footer-sub {
+    font-size: 17px; color: rgba(255,255,255,0.6);
+    max-width: 540px; margin: 0 auto 44px;
+    line-height: 1.75;
+  }
+
+  .footer-cta-row {
+    display: flex; gap: 16px;
+    justify-content: center; flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  .footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin: 0 auto 40px; max-width: 600px;
+  }
+
+  .footer-meta {
+    font-size: 13px; color: rgba(255,255,255,0.35);
+    line-height: 1.9;
+  }
+  .footer-meta strong { color: rgba(255,255,255,0.6); }
+
+  /* ══════════════ RESPONSIVE ══════════════ */
+  @media (max-width: 900px) {
+    .whyme-inner { grid-template-columns: 1fr; gap: 50px; }
+    .steps-row::before { display: none; }
+  }
+
+  @media (max-width: 680px) {
+    .hero { padding: 60px 0 70px; }
+    .hero-inner { flex-direction: column-reverse; text-align: center; gap: 40px; }
+    .hero-cta { justify-content: center; }
+    .hero-trust { justify-content: center; }
+    .profile-img { width: 240px; height: 240px; }
+    .cred-card { left: 50%; transform: translateX(-50%); bottom: -20px; }
+    .research-highlight { text-align: center; justify-content: center; }
+    .section-gap { padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav aria-label="Main navigation">
+  <div class="container row">
+    <a class="logo" href="#" aria-label="DentalCallFlow Home">
+      DentalCall<em>Flow</em>™
+      <span class="nav-badge">● Available</span>
+    </a>
+    <a href="https://wa.me/8801689851306" class="btn btn-primary btn-sm">Book Free Audit</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" aria-label="Hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <span class="dot"></span>
+          Technical Growth Systems · Dental Practices
+        </div>
+
+        <h1>
+          Automated Systems that Fill Your<br>
+          <em>Dental Practice</em><br>
+          With New Patients.
+        </h1>
+
+        <p class="hero-sub">
+          Hi, I'm <strong>Alauddin</strong>. I combine a Computer Science background with 15 years of technical expertise to build high-performance patient acquisition pipelines for dental practices across <strong>Canada, USA & UK</strong>.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#audit" class="btn btn-primary">Claim Your Free Market Audit</a>
+          <a href="#how" class="btn btn-ghost">See How It Works</a>
+        </div>
+
+        <div class="hero-trust">
+          <div class="trust-item">
+            <span class="trust-num">15<em>+</em></span>
+            <span class="trust-label">Years Technical Experience</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num">3<em>+</em></span>
+            <span class="trust-label">Markets: CA · US · UK</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num">CSE</span>
+            <span class="trust-label">Graduate Background</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="profile-wrap">
+          <!-- REPLACE src with your actual image path -->
+          <img
+            src="your-photo.jpg"
+            alt="Alauddin — Patient Acquisition Systems Consultant"
+            class="profile-img"
+            onerror="this.style.background='#152844'"
+          >
+          <div class="cred-card">
+            <div class="cred-title">Alauddin</div>
+            <div class="cred-sub">Systems Consultant · Dental Growth</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-track">
+    <!-- Duplicated for seamless loop -->
+    <span class="ticker-item">Local SEO Dominance</span>
+    <span class="ticker-item">Google Map Pack #1 Ranking</span>
+    <span class="ticker-item">High-Intent Call Ads</span>
+    <span class="ticker-item">New Patient Pipeline Automation</span>
+    <span class="ticker-item">Dental Practice Growth</span>
+    <span class="ticker-item">Canada · USA · UK Markets</span>
+    <span class="ticker-item">15+ Years Technical Expertise</span>
+    <span class="ticker-item">Local SEO Dominance</span>
+    <span class="ticker-item">Google Map Pack #1 Ranking</span>
+    <span class="ticker-item">High-Intent Call Ads</span>
+    <span class="ticker-item">New Patient Pipeline Automation</span>
+    <span class="ticker-item">Dental Practice Growth</span>
+    <span class="ticker-item">Canada · USA · UK Markets</span>
+    <span class="ticker-item">15+ Years Technical Expertise</span>
+  </div>
+</div>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem section-gap" aria-labelledby="problem-h2">
+  <div class="container">
+    <span class="label">The Real Problem</span>
+    <h2 id="problem-h2" style="font-size: clamp(28px,4vw,44px); margin-bottom: 14px; max-width: 620px;">
+      Most Dental Practices Are Invisible Online — Even in Their Own City
+    </h2>
+    <p style="color: var(--text-light); font-size: 16px; max-width: 580px;">
+      Great clinical skills don't bring patients. The practice that ranks #1 on Google gets the call. Here's what's silently costing you new patients every week:
+    </p>
+
+    <div class="problem-grid">
+      <div class="pain-card">
+        <span class="pain-icon">📍</span>
+        <h4>Missing from the Map Pack</h4>
+        <p>Over 76% of local searches result in a same-day call — and if you're not in the top 3 Google Maps results, that call goes to your competitor.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">📞</span>
+        <h4>Your Ad Spend Is Wasted</h4>
+        <p>Dental ad campaigns without call-intent targeting and proper tracking burn budget fast. Most clinics get clicks — not patients.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">🔍</span>
+        <h4>Wrong Keywords, Wrong Traffic</h4>
+        <p>Ranking for "dentist" is not enough. High-value patients search "emergency dentist near me tonight" — and your site isn't there.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">⚙️</span>
+        <h4>No Automated Follow-Up System</h4>
+        <p>A missed call without automatic follow-up is a lost patient. Most practices have zero pipeline — just a phone that rings and a receptionist who's busy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how-section section-gap" id="how" aria-labelledby="how-h2">
+  <div class="container">
+    <span class="label">The System</span>
+    <h2 id="how-h2" style="font-size: clamp(28px,4vw,44px); margin-bottom: 14px;">
+      How DentalCallFlow™ Works
+    </h2>
+    <p style="color: var(--text-light); font-size: 16px; max-width: 560px; margin-bottom: 0;">
+      A precision 4-step technical system — built once, runs every day to bring patients to your door.
+    </p>
+
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Deep Market Audit</h4>
+        <p>I analyse your local market, competitors, keyword gaps, and current digital footprint to find exactly where the opportunity is.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Local SEO & Map Pack Domination</h4>
+        <p>Technical on-page SEO, Google Business optimisation, and citation building to push you to the top of local search results.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>High-Intent Call Ads</h4>
+        <p>Precision Google Call Ads targeting emergency and high-value dental searches — patients call you directly, not your competitor.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Pipeline Automation</h4>
+        <p>Automated follow-up and tracking systems to convert every enquiry into a booked appointment, 24/7.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEARCH / CASE STUDY ══ -->
+<section class="research section-gap" id="research" aria-labelledby="research-h2">
+  <div class="container">
+    <span class="label">Case Study · Saskatoon, Canada</span>
+    <h2 id="research-h2">Data-Driven Market Intelligence:<br>The Saskatoon Dental Market</h2>
+    <p class="research-intro">
+      I personally conducted a deep technical audit of the Saskatoon dental market — mapping keyword intent, competitor gaps, and Map Pack opportunities across key neighbourhoods. The findings confirmed that a correctly structured Local SEO and Call Ad strategy can position a practice at #1 within its local area in a short timeframe.
+    </p>
+
+    <div class="research-grid">
+      <div class="res-card">
+        <span class="res-tag">Kensington · Audit Complete</span>
+        <h4>Local SEO & Map Pack Strategy</h4>
+        <p>Full Local SEO optimisation roadmap and Map Pack entry strategy prepared for Kensington-area practices.</p>
+      </div>
+      <div class="res-card">
+        <span class="res-tag">Lakeview · Keyword Intel</span>
+        <h4>Emergency Dental Search Mapping</h4>
+        <p>High-intent keyword mapping for emergency and urgent dental care searches — the highest-value patient segment in the market.</p>
+      </div>
+      <div class="res-card">
+        <span class="res-tag">City-Wide · Report Ready</span>
+        <h4>Complete Competitor Gap Analysis</h4>
+        <p>Full SEO strategy reports, competitor benchmarking, and growth pathway prepared for Saskatoon clinics.</p>
+      </div>
+    </div>
+
+    <div class="research-highlight">
+      <div class="big">73%</div>
+      <p>
+        <strong>73% of Saskatoon dental clinics</strong> are not optimised for high-intent emergency and same-day appointment searches — the most valuable patient acquisition keywords in the local market. This is the gap your practice can own.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services section-gap" aria-labelledby="services-h2">
+  <div class="container">
+    <span class="label">What You Get</span>
+    <h2 id="services-h2" style="font-size: clamp(28px,4vw,44px); margin-bottom: 14px;">
+      Complete Patient Acquisition Systems
+    </h2>
+    <p style="color: var(--text-light); font-size: 16px; max-width: 560px;">
+      Every system is custom-built for your specific market, practice size, and growth targets.
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h4>Local SEO & Map Pack</h4>
+        <p>Dominate Google local search results and the 3-pack map listing for your most valuable dental keywords.</p>
+        <ul class="service-list">
+          <li>Google Business Profile optimisation</li>
+          <li>Local citation building & cleanup</li>
+          <li>On-page technical SEO</li>
+          <li>Review strategy & reputation management</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📣</div>
+        <h4>High-Intent Google Call Ads</h4>
+        <p>Precision call-only ad campaigns targeting patients actively searching for dental care right now.</p>
+        <ul class="service-list">
+          <li>Emergency & urgent care keyword targeting</li>
+          <li>Call tracking & conversion setup</li>
+          <li>Negative keyword filtering</li>
+          <li>Weekly optimisation & reporting</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h4>Pipeline & Automation</h4>
+        <p>Never lose a patient to a missed call again. Automated follow-up and booking systems that work around the clock.</p>
+        <ul class="service-list">
+          <li>Missed-call SMS & email follow-up</li>
+          <li>Online booking integration</li>
+          <li>Lead tracking dashboard</li>
+          <li>Monthly performance audit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY ME ══ -->
+<section class="whyme section-gap" aria-labelledby="whyme-h2">
+  <div class="container">
+    <div class="whyme-inner">
+      <div class="whyme-content">
+        <span class="label">Why Alauddin</span>
+        <h2 id="whyme-h2">Technical Expertise That<br>Most Marketers Don't Have</h2>
+        <p>
+          Most digital marketing agencies treat dental practices like any other business. I don't. With a Computer Science degree and 15 years of hands-on technical experience, I build systems — not campaigns.
+        </p>
+        <p>
+          The difference is measurable. Technical SEO, proper tracking infrastructure, and automation built right is what separates a practice that dominates its local market from one that's invisible.
+        </p>
+
+        <ul class="credential-list">
+          <li>
+            <span class="cred-icon">🎓</span>
+            Computer Science Graduate — technical foundation matters
+          </li>
+          <li>
+            <span class="cred-icon">📍</span>
+            Focused exclusively on Dental Practices in CA, USA & UK
+          </li>
+          <li>
+            <span class="cred-icon">🔬</span>
+            Data-first — every decision is backed by local market research
+          </li>
+          <li>
+            <span class="cred-icon">📞</span>
+            Systems approach — sustainable, not a one-time campaign
+          </li>
+        </ul>
+      </div>
+
+      <div class="whyme-stats">
+        <div class="stat-box">
+          <div class="stat-num">15<span style="font-size:22px">+</span></div>
+          <div class="stat-desc">Years Technical Experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-desc">Markets: Canada, USA, UK</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">#1</div>
+          <div class="stat-desc">Target: Map Pack Position</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">30</div>
+          <div class="stat-desc">Min Free Audit Call</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER / CTA ══ -->
+<footer id="audit" aria-label="Contact and booking">
+  <div class="container footer-inner">
+    <span class="label" style="color:var(--orange); justify-content:center;">Get Started — It's Free</span>
+    <h2>Ready to Own Your<br><em>Local Dental Market?</em></h2>
+    <p class="footer-sub">
+      Book a free 30-minute market audit. I'll review your local competition, your current digital position, and show you exactly what it would take to reach #1 in your area — no obligation, no fluff.
+    </p>
+
+    <div class="footer-cta-row">
+      <a href="https://wa.me/8801689851306" class="btn btn-primary">
+        💬 WhatsApp Me Now
+      </a>
+      <a href="https://calendly.com/alauddinxyzbd/30min" class="btn btn-ghost">
+        📅 Schedule via Calendly
+      </a>
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-meta">
+      <p><strong>Alauddin</strong> — Computer Science Graduate & Patient Acquisition Systems Consultant</p>
+      <p>Specialising in Dental Practices across USA, Canada, Australia & Europe</p>
+      <p style="margin-top: 16px; opacity: 0.4;">© 2026 DentalCallFlow™ · All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
